@@ -12,7 +12,7 @@ def get_map_student():
         map_student_id = map_student_id + 1
 
     map_course = {}
-    sql="SELECT CO_NAME FROM EDUCATION_PLAN"
+    sql = "SELECT CO_NAME FROM EDUCATION_PLAN"
     result = query(sql)
     map_course_id = 0
     for cur in result:
@@ -31,7 +31,7 @@ def get_matrix(map_student):
     for i in range(30):
         stu_no = map_student[i][1]
         #print(stu_no)
-        sql="SELECT COMMENT FROM CHOOSE WHERE STU_NO='%s'" % (stu_no)
+        sql="SELECT COMMENT FROM CHOOSE WHERE STU_NO = '%s'" % (stu_no)
         score=query(sql)
         #print(score)
         for j in range(118):

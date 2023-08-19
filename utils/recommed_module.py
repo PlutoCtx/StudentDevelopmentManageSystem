@@ -4,18 +4,18 @@ import numpy as np
 from numpy import linalg as la
 
 def getSigK(Sigma, k):
-    '''
+    """
     输入：
         Sigma： 输入的奇异值向量
         k: 取前几个奇异值
     输出：(k,k)的矩阵
-    '''
+    """
     eyeK = np.eye(k)
     return mat(eyeK * Sigma[:k])
 def reBuild(U, Sigma, VT, k):
-    '''
+    """
     使用前k个特征值重构数据
-    '''
+    """
     Sigk = getSigK(Sigma, k)
     # 左行右列
     return mat(np.dot(np.dot(U[:,:k], Sigk), VT[: k,:]))
@@ -24,14 +24,14 @@ def ecludSim(inA,inB):
     return 1.0/(1.0 + la.norm(inA - inB))
 
 def cosSim(inA, inB):
-    '''
+    """
     基于余弦相似性度量
-    '''
+    """
     sim = float(inA.T* inB) / (la.norm(inA) * la.norm(inB))
     return 0.5 + 0.5 * sim
 
 def svdMethod(svdData, dataMat, simMeas, user, item):
-    '''
+    """
     输入：
         见recommend函数
     输出：
@@ -41,7 +41,7 @@ def svdMethod(svdData, dataMat, simMeas, user, item):
         2. if haveBeenScore(item_other)
         3.    compute_Simliar_Score(item, item_other)
         4. return Score
-    '''
+    """
     N = shape(dataMat)[1]
     simTotal = 0.0
     ratSimTotal = 0.0
@@ -64,7 +64,7 @@ def svdMethod(svdData, dataMat, simMeas, user, item):
     return ratSimTotal / simTotal
 
 def recommedCoursePerson(dataMat, user, N=7, simMeas=ecludSim, estMethod=svdMethod):
-    '''
+    """
     输入：
         dataMat(mat)(M,N): 评分矩阵.
         use(int): 想推荐的用户id.
@@ -79,7 +79,7 @@ def recommedCoursePerson(dataMat, user, N=7, simMeas=ecludSim, estMethod=svdMeth
         3. 遍历未评分商品.
         4. 计算用户可能对该商品的评分
         5. 排序取前N个输出.
-    '''
+    """
     print(user)
     dataMat = mat(dataMat)
     unRatedItems = nonzero(dataMat[user,:].A == 0)[1]
